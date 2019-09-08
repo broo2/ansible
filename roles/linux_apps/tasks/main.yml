@@ -13,3 +13,5 @@
     - nano
   when: ansible_os_family == "FreeBSD"
 
+- name: "adding bashrc"
+  copy: src=/home/ansible/bash.bashrc dest=/home/ansible/bash.bashrc owner=ansible group=ansible mode=0644
