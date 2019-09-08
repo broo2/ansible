@@ -1,17 +1,31 @@
-- name: install debian packages
-  apt: pkg={{ item }} state=present
+- name: install debian packages on host
+  apt: 
+    pkg={{ item }} 
+    state=present
   with_items:
     - git
     - screen
     - nano
   when: ansible_os_family == "Debian"
 
-- name: install freebsd packages
-  pkgng: name={{ item }} state=present
+- name: install freebsd packages on host
+  pkgng: 
+    name={{ item }} 
+    state=present
   with_items:
     - screen
     - nano
   when: ansible_os_family == "FreeBSD"
 
-- name: "adding bashrc"
-  copy: src=/home/ansible/bash.bashrc dest=/home/ansible/bash.bashrc owner=ansible group=ansible mode=0644
+- name: "remove /home/ansible/.bashrc and .profile"
+  file: 
+    path: 
+      /home/ansible/{{ item }}  
+    state: absent 
+  with_items:
+    - .profile
+    - .bashrc
+  ignore_errors: yes
+
+- name: "copy local /home/ansible/.bashrc to host"
+  copy: src=/home/ansible/.bashrc dest=/etc/bash.bashrc owner=ansible group=ansible mode=0644
