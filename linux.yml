@@ -1,6 +1,6 @@
 ---
-- hosts: all
+- hosts: firewalls,pis
   become: true
   roles:
-  - basic
-  - update
+  - linux_apps
+  - linux_update
