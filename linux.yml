@@ -1,5 +1,5 @@
 ---
-- hosts: firewalls,pis
+- hosts: firewalls,pis,ansible
   become: true
   roles:
   - linux_apps

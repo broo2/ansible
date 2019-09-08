@@ -1,21 +1,18 @@
 - name: install debian packages on host
   apt: 
-    pkg={{ item }} 
-    state=present
-  with_items:
-    - git
-    - screen
-    - nano
+    pkg: ['git', 'screen', 'nano', 'python-pip']
+    state: present
   when: ansible_os_family == "Debian"
 
 - name: install freebsd packages on host
   pkgng: 
-    name={{ item }} 
-    state=present
-  with_items:
-    - screen
-    - nano
+    name: ['screen', 'nano']
+    state: present
   when: ansible_os_family == "FreeBSD"
+
+#- name: Install PIP apps
+#  pip:
+#    name: NumPy
 
 - name: "remove /home/ansible/.bashrc and .profile"
   file: 
@@ -25,7 +22,9 @@
   with_items:
     - .profile
     - .bashrc
+  when: "'ansible' not in group_names"  
   ignore_errors: yes
-
+ 
 - name: "copy local /home/ansible/.bashrc to host"
   copy: src=/home/ansible/.bashrc dest=/etc/bash.bashrc owner=ansible group=ansible mode=0644
+  when: "'ansible' not in group_names"
