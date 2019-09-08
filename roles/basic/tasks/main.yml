@@ -1,0 +1,15 @@
+- name: install debian packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - git
+    - screen
+    - nano
+  when: ansible_os_family == "Debian"
+
+- name: install freebsd packages
+  pkgng: name={{ item }} state=present
+  with_items:
+    - screen
+    - nano
+  when: ansible_os_family == "FreeBSD"
+

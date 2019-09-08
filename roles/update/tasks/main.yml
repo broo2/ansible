@@ -1,0 +1,12 @@
+- name: install system updates for centos and redhat systems
+  yum: name=* state=latest update_cache=yes
+  when: ansible_os_family  == "Redhat"
+
+- name: install system updates for debian and ubuntu systems
+  apt: upgrade=dist update_cache=yes
+  when: ansible_os_family == "Debian"
+
+- name: install system updates for freebsd systems
+  pkgng: name=* state=present
+  when: ansible_distribution == "FreeBSD"
+

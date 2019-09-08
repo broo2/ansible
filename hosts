@@ -1,0 +1,8 @@
+[firewalls]
+192.168.10.1 ansible_python_interpreter=/usr/local/bin/python2.7
+
+[pis]
+192.168.10.80
+192.168.10.81
+192.168.10.82
+
