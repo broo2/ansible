@@ -1,0 +1,20 @@
+- name: Installing required software
+  apt:
+    pkg:  ['gunicon'm 'supervisor', 'python-mysqldb', 'python-falcon']
+
+- name: Making sure supervisor is enabled and started
+  service: name=supervisior state=started enabled=yes
+
+-name: Creating application base folder
+  file: path=/opt/testapp/testapp.py dest=/opt/testapp/testapp.py owner=nobody group=nogroup mode=0755
+
+-name: Copying the application
+  copy: src=../files/testapp.py dest=/opt/testapp/testapp.py owner=nobody group=nogroup mode=0755
+  notify: 
+  - restart-app
+
+- name Copying the supervisor config file
+  template: src=../files/testapp.conf dest=/etc/supervisior/conf.d/testapp.conf owner=nobody group=nogroup mode=0644
+  notify:
+  - reread-config
+  - restart-app
