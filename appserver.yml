@@ -4,13 +4,12 @@
   roles:
   - basic
 
-- hosts: pi082
+- hosts: pi081
   become: true
   roles:
   - webserver
-  
-- hosts: pi082
+
+- hosts: pi081
   become: true
   roles:
   - appserver
-
