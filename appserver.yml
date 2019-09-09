@@ -8,3 +8,9 @@
   become: true
   roles:
   - webserver
+  
+- hosts: localhost
+  become: true
+  roles
+  - appserver
+

@@ -6,7 +6,7 @@
   service: name=supervisior state=started enabled=yes
 
 -name: Creating application base folder
-  file: path=/opt/testapp/testapp.py dest=/opt/testapp/testapp.py owner=nobody group=nogroup mode=0755
+  file: path=/opt/testapp state=directory owner=nobody group=nogroup mode=0755
 
 -name: Copying the application
   copy: src=../files/testapp.py dest=/opt/testapp/testapp.py owner=nobody group=nogroup mode=0755
@@ -18,3 +18,6 @@
   notify:
   - reread-config
   - restart-app
+  
+-name Add IP of dbserver ro /etc/hosts
+  lineinfile: name=/etc/hosts line="{{hostvars['localhost']['ansible_eth0']['ipv4']['address'] }} dbserver"
