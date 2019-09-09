@@ -22,9 +22,9 @@
   with_items:
     - .profile
     - .bashrc
-  when: "'ansible' not in group_names"  
+  when: "'local' not in group_names"  
   ignore_errors: yes
  
 - name: "copy local /home/ansible/.bashrc to host"
   copy: src=/home/ansible/.bashrc dest=/etc/bash.bashrc owner=ansible group=ansible mode=0644
-  when: "'ansible' not in group_names"
+  when: "'local' not in group_names"

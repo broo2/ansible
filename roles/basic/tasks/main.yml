@@ -1,0 +1,11 @@
+- name: install debian packages on host
+  apt: 
+    pkg: ['git', 'screen', 'nano', 'python-pip']
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: install freebsd packages on host
+  pkgng: 
+    name: ['screen', 'nano']
+    state: present
+  when: ansible_os_family == "FreeBSD"
