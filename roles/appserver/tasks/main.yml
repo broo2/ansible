@@ -1,23 +1,23 @@
 - name: Installing required software
   apt:
-    pkg:  ['gunicon'm 'supervisor', 'python-mysqldb', 'python-falcon']
+    pkg:  ['gunicorn', 'supervisor', 'python-mysqldb', 'python-falcon']
 
 - name: Making sure supervisor is enabled and started
-  service: name=supervisior state=started enabled=yes
+  service: name=supervisor state=started enabled=yes
 
--name: Creating application base folder
+- name: Creating application base folder
   file: path=/opt/testapp state=directory owner=nobody group=nogroup mode=0755
 
--name: Copying the application
+- name: Copying the application
   copy: src=../files/testapp.py dest=/opt/testapp/testapp.py owner=nobody group=nogroup mode=0755
   notify: 
   - restart-app
 
-- name Copying the supervisor config file
-  template: src=../files/testapp.conf dest=/etc/supervisior/conf.d/testapp.conf owner=nobody group=nogroup mode=0644
+- name: Copying the supervisor config file
+  template: src=../files/testapp.conf dest=/etc/supervisor/conf.d/testapp.conf owner=nobody group=nogroup mode=0644
   notify:
   - reread-config
   - restart-app
   
--name Add IP of dbserver ro /etc/hosts
-  lineinfile: name=/etc/hosts line="{{hostvars['localhost']['ansible_eth0']['ipv4']['address'] }} dbserver"
+- name: Add IP of dbserver to /etc/hosts
+  lineinfile: name=/etc/hosts line="{{hostvars['pi082']['ansible_eth0']['ipv4']['address'] }} dbserver"

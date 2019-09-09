@@ -9,8 +9,8 @@
   roles:
   - webserver
   
-- hosts: localhost
+- hosts: pi082
   become: true
-  roles
+  roles:
   - appserver
 
